@@ -1,0 +1,73 @@
+# Quality Control System Configuration
+
+# Data Generation Parameters
+data:
+  n_samples: 100
+  target_mean: 100.0
+  target_std: 2.0
+  anomaly_rate: 0.05
+  random_state: 42
+
+# Control Chart Parameters
+control_chart:
+  control_limit_multiplier: 3.0
+  subgroup_size: 1
+  rules:
+    - "points_outside_limits"
+    - "two_of_three_beyond_2sigma"
+    - "four_of_five_beyond_1sigma"
+    - "eight_consecutive_same_side"
+
+# Process Capability Parameters
+capability:
+  specification_lower: 94.0
+  specification_upper: 106.0
+  target_value: 100.0
+  target_cpk: 1.33
+
+# Anomaly Detection Parameters
+anomaly_detection:
+  contamination: 0.1
+  random_state: 42
+  methods:
+    - "isolation_forest"
+    - "statistical_control"
+
+# Evaluation Parameters
+evaluation:
+  weights:
+    control_chart: 0.3
+    capability: 0.4
+    anomaly_detection: 0.3
+  target_metrics:
+    cpk_minimum: 1.0
+    cpk_target: 1.33
+    yield_target: 0.99
+    false_alarm_rate_max: 0.05
+
+# Visualization Parameters
+visualization:
+  style: "seaborn-v0_8"
+  interactive: true
+  figure_size:
+    width: 800
+    height: 500
+  colors:
+    normal: "blue"
+    anomaly: "red"
+    control_limit: "red"
+    center_line: "green"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "quality_control.log"
+
+# Output Configuration
+output:
+  save_plots: true
+  plot_format: "png"
+  plot_dpi: 300
+  save_data: true
+  data_format: "csv"
